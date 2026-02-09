@@ -2,6 +2,9 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db";
 
+const corsOrigins = process.env.CORS_ORIGINS?.split(",") ?? [];
+const authDomain = process.env.AUTH_DOMAIN;
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -9,12 +12,11 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  trustedOrigins: ["https://*.example.com", "http://localhost:*"],
+  trustedOrigins: [...corsOrigins, "http://localhost:*"],
   advanced: {
-    crossSubDomainCookies: {
-      enabled: true,
-      domain: ".example.com",
-    },
+    crossSubDomainCookies: authDomain
+      ? { enabled: true, domain: authDomain }
+      : undefined,
   },
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
