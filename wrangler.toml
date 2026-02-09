@@ -1,0 +1,10 @@
+name = "sso"
+main = "src/worker.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Set secrets via: wrangler secret put DATABASE_URL
+#                   wrangler secret put BETTER_AUTH_SECRET
+#                   wrangler secret put BETTER_AUTH_URL
+#                   wrangler secret put AUTH_DOMAIN
+#                   wrangler secret put CORS_ORIGINS
