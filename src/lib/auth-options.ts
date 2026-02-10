@@ -1,4 +1,5 @@
 import type { BetterAuthOptions } from "better-auth";
+import { bearer } from "better-auth/plugins/bearer";
 
 export interface AuthEnv {
   DATABASE_URL: string;
@@ -16,6 +17,7 @@ export function getAuthOptions(env: AuthEnv): BetterAuthOptions {
     emailAndPassword: {
       enabled: true,
     },
+    plugins: [bearer()],
     baseURL: env.BETTER_AUTH_URL,
     secret: env.BETTER_AUTH_SECRET,
     trustedOrigins: [...corsOrigins, "http://localhost:*"],
