@@ -5,11 +5,11 @@ import * as schema from "../db/schema.d1";
 import { getAuthOptions, type AuthEnv } from "./auth-options";
 
 export interface WorkerEnv extends AuthEnv {
-  DB: D1Database;
+  sso_auth: D1Database;
 }
 
 export const auth = (env: WorkerEnv) => {
-  const db = drizzle(env.DB, { schema });
+  const db = drizzle(env.sso_auth, { schema });
 
   return betterAuth({
     ...getAuthOptions(env),
