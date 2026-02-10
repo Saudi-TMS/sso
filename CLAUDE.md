@@ -6,7 +6,7 @@ Centralized SSO authentication API serving multiple web apps across subdomains a
 
 - **Runtime:** Bun (VPS) / Cloudflare Workers
 - **Framework:** Hono
-- **Auth:** Better Auth (email/password, cross-subdomain cookies)
+- **Auth:** Better Auth (email/password, cross-subdomain cookies, JWT)
 - **ORM:** Drizzle ORM
 - **Database:** PostgreSQL via `bun:sql` (VPS) / Cloudflare D1 (CF Workers)
 
@@ -62,6 +62,8 @@ drizzle/                  # Generated migration SQL files
 - Auth handler receives raw `Request` objects: `auth.handler(c.req.raw)`
 - CORS and cross-subdomain cookies driven by `AUTH_DOMAIN` and `CORS_ORIGINS` env vars; localhost is always allowed
 - Mobile clients use `Authorization: Bearer <token>` header (same endpoints)
+- JWT plugin enables stateless token verification — external services verify JWTs locally via JWKS public keys
+- JWKS endpoint at `/.well-known/jwks.json`, JWT token endpoint at `/api/auth/token`
 - Session cookie caching enabled (5 min) to reduce DB lookups
 
 ## Environment Variables
@@ -87,3 +89,4 @@ drizzle/                  # Generated migration SQL files
 - `AUTH_DOMAIN` is used by both CORS and cross-subdomain cookies — keep them consistent via the single env var
 - Cookie cache means revoked sessions stay active on other devices for up to `maxAge` (5 min)
 - VPS and CF Workers have separate user databases — they are independent deployments
+- JWT plugin stores signing key pairs in the `jwks` table — auto-generated on first use
