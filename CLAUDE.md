@@ -63,7 +63,7 @@ drizzle/                  # Generated migration SQL files
 - CORS and cross-subdomain cookies driven by `AUTH_DOMAIN` and `CORS_ORIGINS` env vars; localhost is always allowed
 - Mobile clients use `Authorization: Bearer <token>` header (same endpoints)
 - JWT plugin enables stateless token verification — external services verify JWTs locally via JWKS public keys
-- JWKS endpoint at `/.well-known/jwks.json`, JWT token endpoint at `/api/auth/token`
+- JWKS endpoint at `/api/auth/jwks`, JWT token endpoint at `/api/auth/token`
 - Session cookie caching enabled (5 min) to reduce DB lookups
 
 ## Environment Variables
