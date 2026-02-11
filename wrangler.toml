@@ -4,11 +4,6 @@ compatibility_date = "2026-02-09"
 compatibility_flags = ["nodejs_compat"]
 keep_vars = true
 
-[[d1_databases]]
-binding = "sso_auth"
-database_name = "sso-auth"
-database_id = "d5e2321c-63f5-4ce6-913a-42091293e189"
-
 [observability]
 [observability.logs]
 enabled = true
